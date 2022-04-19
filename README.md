@@ -1,24 +1,59 @@
-# README
+# users テーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| firstname          | string | null: false |
+| lastname           | string | null: false |
+| firstname_kana     | string | null: false |
+| lastname_kana      | string | null: false |
+| birth_year         | string | null: false |
+| birth_month        | string | null: false |
+| birth_date         | string | null: false |
 
-Things you may want to cover:
+- has_many :items
+- has_many :buys
 
-* Ruby version
+# items テーブル
 
-* System dependencies
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| product            | string     | null: false |
+| categori           | text       | null: false |
+| price              | text       | null: false |
+| user               | references | null: false, foreign_key: true |
+| explain            | text       | null: false |
+| condition          | text       | null: false |
+| postprice          | string     | null: false |
+| region             | string     | null: false |
+| deliverdays        | string     | null: false |
 
-* Configuration
+- belongs_to :user
+- has_one :buy
 
-* Database creation
+# buys テーブル
 
-* Database initialization
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| product            | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
 
-* How to run the test suite
+- belongs_to :user
+- belongs_to :item
+- has_one :delivery
 
-* Services (job queues, cache servers, search engines, etc.)
+# deliverys テーブル
 
-* Deployment instructions
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| postalcode         | string     | null: false |
+| prefecture         | string     | null: false |
+| city               | string     | null: false |
+| address            | string     | null: false |
+| buildingname       | string     |             |
+| phonenumber        | string     | null: false |
+| user               | references | null: false, foreign_key: true |
 
-* ...
+- belongs_to :buy
