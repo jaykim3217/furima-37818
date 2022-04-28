@@ -5,6 +5,7 @@ RSpec.describe BuyAddress, type: :model do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
     @buy_address = FactoryBot.build(:buy_address, user_id: user, item_id: item)
+    sleep 0.1
   end
 
   describe '購入機能' do
@@ -62,7 +63,7 @@ RSpec.describe BuyAddress, type: :model do
         expect(@buy_address.errors.full_messages).to include("Item can't be blank")
       end
       it 'token(クレジットカード情報がなければ購入できない' do
-        @buy_address.token = ''
+        @buy_address.token = nil
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include("Token can't be blank")
       end
