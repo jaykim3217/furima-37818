@@ -41,17 +41,17 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :delivery
+- has_one :address, dependent :destroy
 
-# deliveries テーブル
+# addresses テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
 | postal_code        | string     | null: false |
 | region_id          | integer    | null: false |
 | city               | string     | null: false |
-| address            | string     | null: false |
-| building_name      | string     |             |
+| address_number     | string     | null: false |
+| building           | string     |             |
 | phone_number       | string     | null: false |
 | buy                | references | null: false, foreign_key: true |
 
