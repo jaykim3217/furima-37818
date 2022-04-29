@@ -5,11 +5,14 @@ RSpec.describe BuyAddress, type: :model do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
     @buy_address = FactoryBot.build(:buy_address, user_id: user, item_id: item)
-    sleep 0.1
   end
 
   describe '購入機能' do
     context '購入できる場合' do
+      it '全ての項目が入力されていれば購入できる' do
+        expect(@buy_address).to be_valid
+      end
+
       it 'buildingが空でも保存できる' do
         @buy_address.building = ''
         expect(@buy_address).to be_valid
@@ -44,6 +47,11 @@ RSpec.describe BuyAddress, type: :model do
       end
       it 'phone_numberが12以上なら保存できない' do
         @buy_address.phone_number = '123456789101'
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'phone_numberが9以下なら保存できない' do
+        @buy_address.phone_number = '123456789'
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include("Phone number is invalid")
       end
